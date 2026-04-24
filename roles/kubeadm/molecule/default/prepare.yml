@@ -1,0 +1,24 @@
+---
+- name: Prepare test environment
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install base packages
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - gnupg
+        state: present
+        update_cache: true
+
+    - name: Add Kubernetes APT key
+      ansible.builtin.apt_key:
+        url: "https://mirror.yandex.ru/mirrors/pkgs.k8s.io/core/stable/v1.32/deb/Release.key"
+        state: present
+
+    - name: Add Kubernetes repository
+      ansible.builtin.apt_repository:
+        repo: "deb https://mirror.yandex.ru/mirrors/pkgs.k8s.io/core/stable/v1.32/deb/ /"
+        state: present
+        update_cache: true

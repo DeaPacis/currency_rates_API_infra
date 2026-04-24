@@ -1,0 +1,13 @@
+galaxy_info:
+  role_name: crio
+  author: apochebut
+  description: DevOps
+  company: YADRO
+
+  license: GPL-2.0
+
+  min_ansible_version: "2.2"
+
+  galaxy_tags: []
+
+dependencies: []

@@ -1,0 +1,12 @@
+---
+- name: Restart crio
+  ansible.builtin.systemd:
+    name: crio
+    state: restarted
+    daemon_reload: true
+    enabled: true
+  when: ansible_virtualization_type != "docker"
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true

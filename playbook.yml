@@ -1,0 +1,10 @@
+---
+- name: Install and configure Kubernetes components
+  hosts: kubernetes
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: crio
+    - role: kubelet
+    - role: kubeadm

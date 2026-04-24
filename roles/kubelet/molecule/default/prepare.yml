@@ -1,0 +1,13 @@
+---
+- name: Prepare test environment
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install base packages
+      ansible.builtin.apt:
+        name:
+          - gnupg
+          - ca-certificates
+        state: present
+        update_cache: true

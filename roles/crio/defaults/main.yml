@@ -1,0 +1,5 @@
+---
+crio_version: "1.32"
+crio_kubernetes_version: "1.32"
+crio_cgroup_driver: "systemd"
+crio_container_storage_dir: "/var/lib/containers"
