@@ -1,0 +1,7 @@
+---
+_crio_crio_repo: "https://download.opensuse.org/repositories/isv:/cri-o:/stable:/v{{ crio_version }}/deb/"
+_crio_crio_repo_key: "{{ _crio_crio_repo }}Release.key"
+_crio_packages:
+  - cri-o
+  - conmon
+  - containernetworking-plugins

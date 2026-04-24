@@ -1,0 +1,3 @@
+---
+_kubeadm_packages:
+  - kubeadm

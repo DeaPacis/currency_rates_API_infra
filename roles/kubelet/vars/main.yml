@@ -1,0 +1,7 @@
+---
+_kubelet_apt_repo_key: "{{ _kubelet_apt_repo }}Release.key"
+_kubelet_apt_repo: "https://mirror.yandex.ru/mirrors/pkgs.k8s.io/core/stable/v{{ kubelet_kubernetes_version }}/deb/"
+_kubelet_packages:
+  - kubelet
+  - kubectl
+_kubelet_systemd_dir: "/etc/systemd/system/kubelet.service.d"

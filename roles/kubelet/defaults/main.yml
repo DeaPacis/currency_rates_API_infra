@@ -1,0 +1,4 @@
+---
+kubelet_kubernetes_version: "1.32"
+kubelet_extra_args: ""
+kubelet_node_ip: ""

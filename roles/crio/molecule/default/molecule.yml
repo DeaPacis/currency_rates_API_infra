@@ -1,0 +1,29 @@
+driver:
+  name: docker
+
+platforms:
+  - name: instance
+    image: geerlingguy/docker-ubuntu2204-ansible
+    privileged: true
+    command: /lib/systemd/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+
+provisioner:
+  name: ansible
+  playbooks:
+    prepare: prepare.yml
+  inventory:
+    host_vars:
+      crio-instance:
+        _crio_crio_repo: "https://download.opensuse.org/repositories/isv:/cri-o:/stable:/v1.32/deb/"
+        _crio_crio_repo_key: "https://download.opensuse.org/repositories/isv:/cri-o:/stable:/v1.32/deb/Release.key"
+        _crio_packages:
+          - cri-o
+          - conmon
+          - containernetworking-plugins
+        crio_cgroup_driver: "systemd"
+
+verifier:
+  name: testinfra
