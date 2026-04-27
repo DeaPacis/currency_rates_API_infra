@@ -1,38 +1,41 @@
-Role Name
-=========
+# Role: calico
 
-A brief description of the role goes here.
+## Description
 
-Requirements
-------------
+Роль устанавливает CNI плагин Calico в Kubernetes кластер.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Обеспечивает:
 
-Role Variables
---------------
+* сетевое взаимодействие между pod'ами
+* настройку pod network
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+## Requirements
 
-Dependencies
-------------
+* Кластер должен быть инициализирован (`kubeadm init`)
+* kubectl должен быть настроен
+* Доступ к kubeconfig (admin.conf)
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Dependencies
 
-Example Playbook
-----------------
+* role: kubeadm_init
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Variables
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+| Variable            | Type   | Default                                                | Description          |
+| ------------------- | ------ | ------------------------------------------------------ | -------------------- |
+| calico_manifest_url | string | "https://docs.projectcalico.org/manifests/calico.yaml" | URL манифеста Calico |
+| kubeconfig_path     | string | "/etc/kubernetes/admin.conf"                           | Путь к kubeconfig    |
 
-License
--------
+## Example Playbook
 
-BSD
+```yaml
+- hosts: master
+  become: true
+  roles:
+    - role: calico
+```
 
-Author Information
-------------------
+## Notes
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+* После установки Calico статус нод должен перейти в Ready
+* Если pod_network_cidr не совпадает с конфигурацией Calico — сеть работать не будет

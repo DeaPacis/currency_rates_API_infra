@@ -1,38 +1,44 @@
-Role Name
-=========
+# Role: kubeadm_join
 
-A brief description of the role goes here.
+## Description
 
-Requirements
-------------
+Роль подключает worker-ноды к Kubernetes кластеру с помощью команды `kubeadm join`.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Команда подключения должна быть получена с master-ноды.
 
-Role Variables
---------------
+## Requirements
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+* Выполнен `kubeadm init` на master
+* Доступна join-команда
+* Установлены:
 
-Dependencies
-------------
+  * kubeadm
+  * kubelet
+  * container runtime (CRI-O)
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Dependencies
 
-Example Playbook
-----------------
+* role: crio
+* role: kubelet
+* role: kubeadm
+* role: kubeadm_init (на master)
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Variables
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+| Variable          | Type   | Default | Description                                |
+| ----------------- | ------ | ------- | ------------------------------------------ |
+| kube_join_command | string | ""      | Команда подключения worker-ноды к кластеру |
 
-License
--------
+## Example Playbook
 
-BSD
+```yaml
+- hosts: workers
+  become: true
+  roles:
+    - role: kubeadm_join
+```
 
-Author Information
-------------------
+## Notes
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+* Роль использует hostvars для получения join-команды с master-ноды
+* Повторный запуск роли не приводит к повторному подключению (идемпотентность через creates)
