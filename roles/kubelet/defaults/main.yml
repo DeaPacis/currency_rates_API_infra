@@ -1,4 +1,4 @@
 ---
 kubelet_kubernetes_version: "1.32"
-kubelet_extra_args: ""
+kubelet_extra_args: "--container-runtime-endpoint=unix:///var/run/crio/crio.sock"
 kubelet_node_ip: ""

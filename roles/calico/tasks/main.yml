@@ -1,0 +1,8 @@
+---
+- name: Install Calico network plugin
+  ansible.builtin.command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+  args:
+    creates: /etc/cni/net.d/10-calico.conflist
+  changed_when: false
