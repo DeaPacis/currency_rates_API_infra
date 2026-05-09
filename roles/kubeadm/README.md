@@ -1,18 +1,20 @@
-# Kubeadm Role
+# Role: Kubeadm
 
-## Описание
+## Description
+
 Роль для установки и настройки Kubeadm.
 
-## Зависимости
+## Requirements
+
 - `ansible.builtin` - встроенные модули Ansible
 
-## Переменные
+## Variables
 
-| Переменная | Тип | Значение по умолчанию | Описание |
-|------------|-----|----------------------|-----------|
+| Variable | Type | Default | Description |
+| -------- | ---- | ------- | ----------- |
 | `kubernetes_version` | string | "1.32" | Версия Kubernetes |
 
-## Пример использования
+## Example Playbook
 
 ```yaml
 - hosts: kubernetes
@@ -21,3 +23,4 @@
     - role: kubeadm
       vars:
         kubernetes_version: "1.32"
+```

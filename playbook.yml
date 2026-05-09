@@ -8,3 +8,18 @@
     - role: crio
     - role: kubelet
     - role: kubeadm
+
+- name: Initialize Kubernetes control plane
+  hosts: k8s_masters
+  become: true
+
+  roles:
+    - role: kubeadm_init
+    - role: calico
+
+- name: Join workers to cluster
+  hosts: k8s_workers
+  become: true
+
+  roles:
+    - role: kubeadm_join

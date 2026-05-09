@@ -1,0 +1,10 @@
+- name: Wait for master to generate join command
+  ansible.builtin.wait_for:
+    timeout: 10
+
+- name: Join node to cluster
+  ansible.builtin.command: >
+    {{ hostvars[groups['k8s_masters'][0]].kubeadm_init_join_command }}
+    --cri-socket=unix:///var/run/crio/crio.sock
+  args:
+    creates: /etc/kubernetes/kubelet.conf
