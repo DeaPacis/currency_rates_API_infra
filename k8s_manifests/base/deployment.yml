@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: currency-api
-          image: education-git.yadro.com:5050/education/devops/2026/a.pochebut/app:v0.4.15
+          image: apochebut03/currency-app:v0.4
           ports:
             - containerPort: 8000
           env:
