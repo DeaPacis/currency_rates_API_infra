@@ -33,7 +33,7 @@ update-manifests:
     MANIFEST_REPO_TOKEN: $MANIFEST_REPO_TOKEN
   script:
     - echo "${MANIFEST_REPO_TOKEN:+TOKEN_EXISTS}"
-    - git clone https://gitlab-ci-token:$MANIFEST_REPO_TOKEN@education-git.yadro.com/education/devops/2026/a.pochebut/infra.git infra
+    - git clone https://gitlab+deploy-token-4:$MANIFEST_REPO_TOKEN@education-git.yadro.com/education/devops/2026/a.pochebut/infra.git infra
     - cd infra/k8s_manifests/base
     
     - git config user.email "gitlab-ci@yadro.com"
