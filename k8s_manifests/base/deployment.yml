@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: currency-api
-          image: apochebut03/currency-app:v0.4
+          image: docker.io/apochebut03/currency-app:v0.4.17
           ports:
             - containerPort: 8000
           env:
