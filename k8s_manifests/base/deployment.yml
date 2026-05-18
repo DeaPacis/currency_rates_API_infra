@@ -12,9 +12,29 @@ spec:
       labels:
         app: currency-api
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - currency-api
+                topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: DoesNotExist
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: DoesNotExist
       containers:
         - name: currency-api
-          image: apochebut03/currency-app:v0.4
+          image: docker.io/apochebut03/currency-app:v0.4.17
           ports:
             - containerPort: 8000
           env:
@@ -33,11 +53,13 @@ spec:
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
+            failureThreshold: 3
           livenessProbe:
             httpGet:
               path: /info
               port: 8000
             initialDelaySeconds: 10
             periodSeconds: 15
+            failureThreshold: 3
       imagePullSecrets:
         - name: dockerhub
