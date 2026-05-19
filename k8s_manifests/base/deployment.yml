@@ -34,7 +34,7 @@ spec:
                     operator: DoesNotExist
       containers:
         - name: currency-api
-          image: docker.io/apochebut03/currency-app:v0.4.17
+          image: docker.io/apochebut03/currency-app:2b7f099b
           ports:
             - containerPort: 8000
           env:
